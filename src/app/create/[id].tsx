@@ -65,7 +65,10 @@ export default function CustomizeScreen() {
 
   const handleSave = () => {
     saveWallpaper();
-    router.push('/(tabs)/library');
+    if (router.canDismiss()) {
+      router.dismissAll();
+    }
+    router.replace('/(tabs)/library');
   };
 
   if (!currentWallpaper.affirmation) {

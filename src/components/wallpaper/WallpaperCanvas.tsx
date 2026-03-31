@@ -17,7 +17,7 @@ export const WallpaperCanvas = React.forwardRef<ViewShot>((props, ref) => {
   const {
     backgroundType = 'gradient',
     backgroundValue = ['#FF6B35', '#F7931E'],
-    patternConfig = { opacity: 0.1, scale: 1, type: 'dots', color: '#FFFFFF' },
+    patternConfig,
     imageOpacity = 1,
     imageSaturation = 1,
     textContent = '',

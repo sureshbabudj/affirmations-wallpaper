@@ -20,6 +20,7 @@ import { generatePatternSVG, PATTERN_DEFINITIONS } from '@/src/services/wallpape
 import { SvgXml } from 'react-native-svg';
 import Slider from '@react-native-community/slider';
 import ColorPicker, { Panel1, HueSlider } from 'reanimated-color-picker';
+import { runOnJS } from 'react-native-reanimated';
 
 type Tab = 'color' | 'image' | 'pattern' | 'gradient' | 'text';
 
@@ -302,9 +303,17 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
                 contentContainerStyle={{ gap: 8 }}
                 className="flex-row pb-2">
                 <Pressable
-                  onPress={() =>
-                    updateWallpaper({ backgroundType: 'color', backgroundValue: '#fbf9f4' })
-                  }
+                  onPress={() => {
+                    if (currentWallpaper.backgroundType === 'pattern') {
+                      updateWallpaper({
+                        backgroundType: 'color',
+                        backgroundValue: currentWallpaper.backgroundValue,
+                        patternConfig: undefined,
+                      });
+                    } else {
+                      updateWallpaper({ patternConfig: undefined });
+                    }
+                  }}
                   className="flex w-20 shrink-0 items-center justify-center rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest"
                   style={{ aspectRatio: 4 / 5 }}>
                   <Ban size={24} color="#53433e" />
@@ -645,20 +654,30 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
               <Text className="mb-2 font-manrope text-[10px] font-bold uppercase tracking-[0.2rem] text-secondary">
                 Spectrum Selection
               </Text>
-              <Text className="text-center font-noto-serif-italic text-4xl leading-tight text-on-surface">
+              <Text className="font-noto-serif-italic text-center text-4xl leading-tight text-on-surface">
                 Choose Your{'\n'}
-                <Text className="text-primary italic">Aura</Text>
+                <Text className="italic text-primary">Aura</Text>
               </Text>
             </View>
 
             {/* Real Color Picker Component */}
             <View className="mb-8 w-full items-center justify-center drop-shadow-lg">
-              <ColorPicker 
-                style={{ width: '100%', gap: 16 }} 
-                value={tempHex.length === 4 || tempHex.length === 7 ? tempHex : '#874c37'} 
-                onChange={(color) => setTempHex(color.hex)}
-              >
-                <Panel1 style={{ height: 180, borderRadius: 24, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10 }} />
+              <ColorPicker
+                style={{ width: '100%', gap: 16 }}
+                value={tempHex.length === 4 || tempHex.length === 7 ? tempHex : '#874c37'}
+                onComplete={(color) => {
+                  'worklet';
+                  runOnJS(setTempHex)(color.hex);
+                }}>
+                <Panel1
+                  style={{
+                    height: 180,
+                    borderRadius: 24,
+                    shadowColor: '#000',
+                    shadowOpacity: 0.1,
+                    shadowRadius: 10,
+                  }}
+                />
                 <View className="rounded-full bg-surface-container-low p-2">
                   <HueSlider style={{ height: 20, borderRadius: 10 }} sliderThickness={24} />
                 </View>
@@ -670,13 +689,15 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
                 <Text className="font-manrope text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
                   Hex Intensity
                 </Text>
-                <Text className="font-manrope text-xs font-bold text-primary">{tempHex.toUpperCase()}</Text>
+                <Text className="font-manrope text-xs font-bold text-primary">
+                  {tempHex.toUpperCase()}
+                </Text>
               </View>
               <TextInput
                 value={tempHex}
                 onChangeText={setTempHex}
                 placeholder="#000000"
-                className="w-full rounded-2xl bg-surface-container-high px-6 py-4 text-center font-manrope text-lg font-bold tracking-widest text-on-surface shadow-inner"
+                className="shadow-inner w-full rounded-2xl bg-surface-container-high px-6 py-4 text-center font-manrope text-lg font-bold tracking-widest text-on-surface"
                 autoCapitalize="none"
                 maxLength={7}
               />
@@ -686,11 +707,13 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
               <Pressable
                 onPress={() => setColorPickerTarget(null)}
                 className="flex-1 items-center justify-center rounded-xl bg-surface-container-low py-4 transition-colors hover:bg-surface-container-high">
-                <Text className="font-manrope text-sm font-bold text-on-surface-variant">Cancel</Text>
+                <Text className="font-manrope text-sm font-bold text-on-surface-variant">
+                  Cancel
+                </Text>
               </Pressable>
               <Pressable
                 onPress={() => handleApplyColor(tempHex)}
-                className="flex-1 items-center justify-center rounded-xl bg-primary py-4 shadow-xl active:scale-95 transition-transform">
+                className="flex-1 items-center justify-center rounded-xl bg-primary py-4 shadow-xl transition-transform active:scale-95">
                 <Text className="font-manrope text-sm font-bold text-white">Set Atmosphere</Text>
               </Pressable>
             </View>

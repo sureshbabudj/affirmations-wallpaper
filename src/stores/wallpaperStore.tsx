@@ -92,13 +92,8 @@ const DEFAULT_WALLPAPER: Partial<Wallpaper> = {
   textSize: 32,
   textAlignment: { vertical: 'center', horizontal: 'center' },
   textOpacity: 1,
-  fontFamily: 'Inter-SemiBold',
-  patternConfig: {
-    type: 'dots',
-    opacity: 0.1,
-    scale: 1,
-    color: '#FFFFFF',
-  },
+  fontFamily: 'NotoSerif-Bold',
+  patternConfig: undefined,
   textContent: '',
 };
 

@@ -66,13 +66,40 @@ export default function LibraryScreen() {
             style={StyleSheet.absoluteFill}
           />
 
-          <View style={StyleSheet.absoluteFill} className="flex-col justify-end p-4 sm:p-6">
+          <View
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                padding: 16,
+                paddingBottom: 48, // space for mood tag
+                justifyContent:
+                  wallpaper.textAlignment?.vertical === 'top'
+                    ? 'flex-start'
+                    : wallpaper.textAlignment?.vertical === 'bottom'
+                      ? 'flex-end'
+                      : 'center',
+                alignItems:
+                  wallpaper.textAlignment?.horizontal === 'left'
+                    ? 'flex-start'
+                    : wallpaper.textAlignment?.horizontal === 'right'
+                      ? 'flex-end'
+                      : 'center',
+              },
+            ]}>
             <Text
               numberOfLines={4}
-              className="mb-3 font-noto-serif text-lg leading-snug text-white">
+              style={{
+                fontFamily: wallpaper.fontFamily || 'NotoSerif-Bold',
+                fontSize: Math.max(14, (wallpaper.textSize || 32) * 0.5),
+                color: wallpaper.textColor || '#FFFFFF',
+                textAlign: wallpaper.textAlignment?.horizontal as any || 'center',
+                opacity: wallpaper.textOpacity ?? 1,
+              }}>
               {wallpaper.affirmation}
             </Text>
+          </View>
 
+          <View style={StyleSheet.absoluteFill} className="pointer-events-none flex-col justify-end p-4 sm:p-6">
             <View className="flex-row items-center gap-2">
               <Text className="text-white/80">{moodConfig?.emoji || '✨'}</Text>
               <Text className="font-manrope text-[10px] font-bold uppercase tracking-widest text-white/80">
@@ -219,10 +246,38 @@ export default function LibraryScreen() {
                 style={StyleSheet.absoluteFill}
               />
 
-              <View className="relative z-10 max-w-2xl items-center space-y-6">
-                <Text className="text-center font-noto-serif text-3xl leading-tight text-white md:text-5xl">
+              <View
+                style={[
+                  StyleSheet.absoluteFill,
+                  {
+                    padding: 32,
+                    justifyContent:
+                      savedWallpapers[0].textAlignment?.vertical === 'top'
+                        ? 'flex-start'
+                        : savedWallpapers[0].textAlignment?.vertical === 'bottom'
+                          ? 'flex-end'
+                          : 'center',
+                    alignItems:
+                      savedWallpapers[0].textAlignment?.horizontal === 'left'
+                        ? 'flex-start'
+                        : savedWallpapers[0].textAlignment?.horizontal === 'right'
+                          ? 'flex-end'
+                          : 'center',
+                  },
+                ]}
+                className="relative z-10 w-full"
+                pointerEvents="none">
+                <Text
+                  style={{
+                    fontFamily: savedWallpapers[0].fontFamily || 'NotoSerif-Bold',
+                    fontSize: savedWallpapers[0].textSize || 32,
+                    color: savedWallpapers[0].textColor || '#FFFFFF',
+                    textAlign: savedWallpapers[0].textAlignment?.horizontal as any || 'center',
+                    opacity: savedWallpapers[0].textOpacity ?? 1,
+                  }}>
                   {savedWallpapers[0].affirmation}
                 </Text>
+
                 <View className="mt-6 flex-row items-center justify-center gap-4">
                   <View className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-md">
                     <Text className="font-manrope text-[10px] font-bold uppercase tracking-widest text-white">
