@@ -19,6 +19,7 @@ import { X, Palette, Ban, Grid } from 'lucide-react-native';
 import { generatePatternSVG, PATTERN_DEFINITIONS } from '@/src/services/wallpaper/patterns';
 import { SvgXml } from 'react-native-svg';
 import Slider from '@react-native-community/slider';
+import ColorPicker, { Panel1, HueSlider } from 'reanimated-color-picker';
 
 type Tab = 'color' | 'image' | 'pattern' | 'gradient' | 'text';
 
@@ -638,39 +639,61 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
       <Modal visible={!!colorPickerTarget} transparent animationType="fade">
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          className="flex-1 items-center justify-center bg-black/50 p-6">
-          <View className="w-full max-w-sm rounded-3xl bg-surface-container-lowest p-6 shadow-2xl">
-            <View className="mb-6 flex-row items-center justify-between">
-              <Text className="font-manrope text-lg font-bold text-on-surface">
-                Enter Hex Color
+          className="flex-1 items-center justify-center bg-black/60 p-6">
+          <View className="w-full max-w-md rounded-[2.5rem] bg-surface-container-lowest p-8 shadow-[0_20px_40px_rgba(83,67,62,0.15)]">
+            <View className="mb-8 items-center text-center">
+              <Text className="mb-2 font-manrope text-[10px] font-bold uppercase tracking-[0.2rem] text-secondary">
+                Spectrum Selection
               </Text>
-              <Pressable
-                onPress={() => setColorPickerTarget(null)}
-                className="rounded-full bg-surface-container p-2">
-                <X size={20} color="#53433e" />
-              </Pressable>
+              <Text className="text-center font-noto-serif-italic text-4xl leading-tight text-on-surface">
+                Choose Your{'\n'}
+                <Text className="text-primary italic">Aura</Text>
+              </Text>
             </View>
-            <View className="mb-6 flex-row items-center gap-4">
-              <View
-                className="h-12 w-12 rounded-full border border-outline-variant"
-                style={{
-                  backgroundColor:
-                    tempHex.length === 4 || tempHex.length === 7 ? tempHex : 'transparent',
-                }}
-              />
+
+            {/* Real Color Picker Component */}
+            <View className="mb-8 w-full items-center justify-center drop-shadow-lg">
+              <ColorPicker 
+                style={{ width: '100%', gap: 16 }} 
+                value={tempHex.length === 4 || tempHex.length === 7 ? tempHex : '#874c37'} 
+                onChange={(color) => setTempHex(color.hex)}
+              >
+                <Panel1 style={{ height: 180, borderRadius: 24, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 10 }} />
+                <View className="rounded-full bg-surface-container-low p-2">
+                  <HueSlider style={{ height: 20, borderRadius: 10 }} sliderThickness={24} />
+                </View>
+              </ColorPicker>
+            </View>
+
+            <View className="mb-8 space-y-4">
+              <View className="flex-row items-center justify-between px-2 pb-2">
+                <Text className="font-manrope text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
+                  Hex Intensity
+                </Text>
+                <Text className="font-manrope text-xs font-bold text-primary">{tempHex.toUpperCase()}</Text>
+              </View>
               <TextInput
                 value={tempHex}
                 onChangeText={setTempHex}
                 placeholder="#000000"
-                className="flex-1 rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 font-manrope text-base text-on-surface"
+                className="w-full rounded-2xl bg-surface-container-high px-6 py-4 text-center font-manrope text-lg font-bold tracking-widest text-on-surface shadow-inner"
                 autoCapitalize="none"
+                maxLength={7}
               />
             </View>
-            <Pressable
-              onPress={() => handleApplyColor(tempHex)}
-              className="w-full rounded-xl bg-primary py-4">
-              <Text className="text-center font-manrope font-bold text-white">Apply Color</Text>
-            </Pressable>
+
+            <View className="flex-row gap-4">
+              <Pressable
+                onPress={() => setColorPickerTarget(null)}
+                className="flex-1 items-center justify-center rounded-xl bg-surface-container-low py-4 transition-colors hover:bg-surface-container-high">
+                <Text className="font-manrope text-sm font-bold text-on-surface-variant">Cancel</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => handleApplyColor(tempHex)}
+                className="flex-1 items-center justify-center rounded-xl bg-primary py-4 shadow-xl active:scale-95 transition-transform">
+                <Text className="font-manrope text-sm font-bold text-white">Set Atmosphere</Text>
+              </Pressable>
+            </View>
           </View>
         </KeyboardAvoidingView>
       </Modal>

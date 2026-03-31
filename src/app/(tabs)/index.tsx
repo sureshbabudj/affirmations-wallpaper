@@ -206,7 +206,7 @@ export default function HomeScreen() {
             </Text>
           </View>
           <Pressable
-            onPress={() => router.push('/library/daily')}
+            onPress={() => router.push('/(tabs)/daily')}
             className="mt-6 w-[80%] items-center rounded-full bg-primary px-6 py-4">
             <Text className="font-manrope text-xs font-semibold uppercase tracking-widest text-on-primary">
               Set Up Rotation

@@ -45,18 +45,6 @@
       "expo-font",
       "expo-sharing",
       "expo-secure-store",
-      "expo-widgets",
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "newArchEnabled": true
-          },
-          "android": {
-            "newArchEnabled": true
-          }
-        }
-      ],
       [
         "expo-widgets",
         {
@@ -76,12 +64,6 @@
             }
           ],
           "groupIdentifier": "group.com.yourcompany.iamwallpaper"
-        }
-      ],
-      [
-        "@bacons/apple-targets",
-        {
-          "appleTeamId": "sureshbabudj"
         }
       ],
       [
