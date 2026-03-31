@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Pressable, ActivityIndicator } from 'react-native';
+import { View, Text, ScrollView, Pressable, ActivityIndicator, StyleSheet } from 'react-native';
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
 import { MOODS, MoodId } from '@/src/constants/moods';
 import { MOOD_IMAGES } from '@/src/constants/images';
 import { Image } from 'expo-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Plus, Image as ImageIcon } from 'lucide-react-native';
+import { generatePatternSVG, PATTERN_DEFINITIONS } from '@/src/services/wallpaper/patterns';
+import { SvgXml } from 'react-native-svg';
 
 interface CustomizerControlsProps {
   onApply?: () => void;
@@ -28,7 +30,7 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
   const colors = ['#fbf9f4', '#d5e8d1', '#ffdbcf', '#874c37', '#30312e', '#655a4b'];
 
   return (
-    <View className="absolute bottom-0 left-0 right-0 z-40 max-h-[75%] flex-col rounded-t-[2.5rem] bg-surface-container-lowest shadow-[0_-20px_50px_rgba(83,67,62,0.15)]">
+    <View className="absolute bottom-0 left-0 right-0 z-40 max-h-[50%] flex-col rounded-t-[2.5rem] bg-surface-container-lowest shadow-[0_-20px_50px_rgba(83,67,62,0.15)]">
       {/* Sheet Handle */}
       <View className="w-full flex-row justify-center pb-2 pt-4">
         <View className="h-1.5 w-12 rounded-full bg-outline-variant/30" />
@@ -73,16 +75,23 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                className="flex-row gap-4 px-2 pb-2">
+                contentContainerStyle={{ gap: 8 }}
+                className="flex-row px-2 pb-2">
                 {colors.map((c) => (
                   <Pressable
                     key={c}
-                    onPress={() => updateWallpaper({ backgroundType: 'color', backgroundValue: c })}
+                    onPress={() =>
+                      updateWallpaper({
+                        backgroundType:
+                          currentWallpaper.backgroundType === 'pattern' ? 'pattern' : 'color',
+                        backgroundValue: c,
+                      })
+                    }
                     style={{ backgroundColor: c }}
-                    className={`h-12 w-12 shrink-0 rounded-full transition-transform active:scale-90 ${
+                    className={`h-12 w-12 shrink-0 rounded-full border transition-transform active:scale-90 ${
                       currentWallpaper.backgroundValue === c
-                        ? 'ring-2 ring-primary ring-offset-2'
-                        : 'ring-1 ring-outline-variant'
+                        ? 'border-2 border-primary/40'
+                        : 'border-1 border-outline-variant'
                     }`}
                   />
                 ))}
@@ -115,27 +124,91 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                className="flex-row gap-3 px-2 pb-2">
-                {(MOOD_IMAGES[currentWallpaper.moodId!] || []).slice(0, 5).map((url, index) => (
-                  <Pressable
-                    key={index}
-                    onPress={() =>
-                      updateWallpaper({ backgroundType: 'image', backgroundValue: url })
-                    }
-                    className={`group relative w-24 shrink-0 overflow-hidden rounded-xl transition-all ${
-                      currentWallpaper.backgroundValue === url
-                        ? 'ring-2 ring-primary'
-                        : 'hover:scale-105'
-                    }`}
-                    style={{ aspectRatio: 4 / 5 }}>
-                    <Image
-                      source={{ uri: url }}
-                      style={{ width: '100%', height: '100%' }}
-                      contentFit="cover"
-                    />
-                    <View className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent" />
-                  </Pressable>
-                ))}
+                contentContainerStyle={{ gap: 8 }}
+                className="flex-row px-2 pb-2">
+                {(MOOD_IMAGES[currentWallpaper.moodId!] || []).slice(0, 5).map((url, index) => {
+                  console.log(url);
+                  return (
+                    <Pressable
+                      key={index}
+                      onPress={() =>
+                        updateWallpaper({ backgroundType: 'image', backgroundValue: url })
+                      }
+                      className={`group relative w-24 shrink-0 overflow-hidden rounded-xl transition-all ${
+                        currentWallpaper.backgroundValue === url
+                          ? 'ring-2 ring-primary'
+                          : 'hover:scale-105'
+                      }`}
+                      style={{ aspectRatio: 4 / 5 }}>
+                      <Image
+                        source={{ uri: url }}
+                        style={{ width: '100%', height: '100%' }}
+                        contentFit="cover"
+                      />
+                      <View className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent" />
+                    </Pressable>
+                  );
+                })}
+                <Pressable
+                  className="flex w-24 shrink-0 items-center justify-center rounded-xl bg-surface-container transition-colors hover:bg-surface-container-high"
+                  style={{ aspectRatio: 4 / 5 }}>
+                  <View className="flex-col items-center gap-1 opacity-60">
+                    <ImageIcon size={24} color="#53433e" />
+                    <Text className="font-manrope text-[8px] font-bold uppercase tracking-widest text-on-surface-variant">
+                      Library
+                    </Text>
+                  </View>
+                </Pressable>
+              </ScrollView>
+
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ gap: 8 }}
+                className="flex-row px-2 pb-2">
+                {Object.keys(PATTERN_DEFINITIONS).map((key, index) => {
+                  return (
+                    <Pressable
+                      key={index}
+                      onPress={() =>
+                        updateWallpaper({
+                          backgroundType: 'pattern',
+                          backgroundValue:
+                            currentWallpaper.backgroundType === 'color' ||
+                            currentWallpaper.backgroundType === 'pattern'
+                              ? currentWallpaper.backgroundValue
+                              : '#fbf9f4',
+                          patternConfig: {
+                            color: '#000000',
+                            ...currentWallpaper.patternConfig,
+                            type: key as any,
+                            opacity: 0.2,
+                            scale: 1,
+                          },
+                        })
+                      }
+                      className={`group relative w-24 shrink-0 overflow-hidden rounded-xl transition-all ${
+                        currentWallpaper.backgroundType === 'pattern' &&
+                        currentWallpaper.patternConfig?.type === key
+                          ? 'ring-2 ring-primary'
+                          : 'hover:scale-105'
+                      }`}
+                      style={{ aspectRatio: 4 / 5 }}>
+                      <View style={[StyleSheet.absoluteFill, { backgroundColor: '#FBF9F4' }]} />
+                      <SvgXml
+                        xml={generatePatternSVG({
+                          type: key as any,
+                          opacity: 0.5,
+                          scale: 1,
+                          color: currentWallpaper.textColor || '#30312e',
+                        })}
+                        width="100%"
+                        height="100%"
+                      />
+                      <View className="absolute inset-0 bg-black/10 transition-colors group-hover:bg-transparent" />
+                    </Pressable>
+                  );
+                })}
                 <Pressable
                   className="flex w-24 shrink-0 items-center justify-center rounded-xl bg-surface-container transition-colors hover:bg-surface-container-high"
                   style={{ aspectRatio: 4 / 5 }}>
@@ -188,7 +261,10 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
                         })
                       }
                       className={`flex-1 items-center justify-center rounded-lg py-2.5 transition-colors ${isActive ? 'bg-white shadow-sm' : 'hover:bg-surface-container-high'}`}>
-                      <Text className={`font-manrope text-[10px] font-bold uppercase tracking-widest ${isActive ? 'text-primary' : 'text-on-surface-variant'}`}>{align}</Text>
+                      <Text
+                        className={`font-manrope text-[10px] font-bold uppercase tracking-widest ${isActive ? 'text-primary' : 'text-on-surface-variant'}`}>
+                        {align}
+                      </Text>
                     </Pressable>
                   );
                 })}
