@@ -83,7 +83,24 @@
         "origin": false
       },
       "eas": {
-        "projectId": "your-project-id"
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "ExpoWidgetsTarget",
+                  "bundleIdentifier": "com.sureshbabudj.affirmationswallpaper.ExpoWidgetsTarget",
+                  "entitlements": {
+                    "com.apple.security.application-groups": [
+                      "group.com.yourcompany.iamwallpaper"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "4e6cc06e-9e2a-417d-91a2-1beeb954875d"
       }
     }
   }
