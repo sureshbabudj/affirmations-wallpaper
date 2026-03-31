@@ -16,6 +16,7 @@ import { MoodId } from '@/src/constants/moods';
 import { useMoodStore } from '@/src/stores/moodStore';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '@/src/constants/colors';
+import { RandomQuote } from '@/src/components/quote/RandomQuote';
 
 const MOOD_UI = [
   {
@@ -38,10 +39,10 @@ const MOOD_UI = [
     bg: 'bg-on-error-container/10',
     color: colors['on-error-container'],
     shape: {
-      borderTopLeftRadius: 80,
-      borderTopRightRadius: 90,
-      borderBottomRightRadius: 70,
-      borderBottomLeftRadius: 70,
+      borderTopLeftRadius: 86,
+      borderTopRightRadius: 82,
+      borderBottomRightRadius: 82,
+      borderBottomLeftRadius: 100,
     },
   },
   {
@@ -87,7 +88,7 @@ const MOOD_UI = [
     id: 'focused',
     label: 'focused',
     icon: Focus,
-    bg: 'bg-secondary/20',
+    bg: 'bg-secondary/10',
     color: colors['secondary'],
     shape: {
       borderTopLeftRadius: 70,
@@ -119,7 +120,7 @@ export default function HomeScreen() {
         <Pressable className="text-primary active:scale-95">
           <Menu size={24} color="#874c37" />
         </Pressable>
-        <Text className="font-noto-serif text-2xl italic text-primary">I Am</Text>
+        <Text className="font-noto-serif-italic text-2xl text-primary">I Am</Text>
         <Pressable
           onPress={() => router.push('/settings')}
           className="text-primary active:scale-95">
@@ -140,9 +141,7 @@ export default function HomeScreen() {
           </View>
           <View className="min-h-[300px] items-center justify-center rounded-[2rem] bg-surface-container-lowest p-8 text-center shadow">
             <View className="relative z-10 items-center">
-              <Text className="max-w-sm text-center font-noto-serif text-3xl italic leading-tight text-primary md:text-5xl">
-                &quot;I inhale peace and exhale anything that no longer serves my soul.&quot;
-              </Text>
+              <RandomQuote />
 
               <View className="mt-8 flex-row items-center justify-center gap-6">
                 <Pressable className="flex-row items-center gap-2 active:opacity-70">

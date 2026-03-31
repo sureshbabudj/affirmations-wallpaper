@@ -54,7 +54,7 @@ export default function LibraryScreen() {
           {wallpaper.backgroundType === 'image' && (
             <Image
               source={{ uri: wallpaper.backgroundValue as string }}
-              style={[StyleSheet.absoluteFillObject, { width: '100%', height: '100%' }]}
+              style={[StyleSheet.absoluteFill, { width: '100%', height: '100%' }]}
               className="absolute inset-0 z-0 h-full w-full"
               contentFit="cover"
               transition={200}
@@ -115,7 +115,7 @@ export default function LibraryScreen() {
         <Pressable className="text-primary active:scale-95">
           <Menu size={24} color="#874c37" />
         </Pressable>
-        <Text className="font-noto-serif text-2xl italic tracking-tight text-primary">I Am</Text>
+        <Text className="font-noto-serif-italic text-2xl tracking-tight text-primary">I Am</Text>
         <Pressable
           onPress={() => router.push('/settings')}
           className="text-primary active:scale-95">
@@ -182,7 +182,7 @@ export default function LibraryScreen() {
 
         {/* Today's Focus Section */}
         {savedWallpapers.length > 0 && searchQuery === '' && selectedMoodFilter === 'all' && (
-          <View className="relative group mb-12 mt-4 px-6">
+          <View className="group relative mb-12 mt-4 px-6">
             <View className="absolute -top-3 left-10 z-10">
               <Text className="rounded-full bg-surface px-3 py-1 font-manrope text-[10px] font-bold uppercase tracking-widest text-[#874c37]">
                 Today&apos;s Focus
@@ -208,7 +208,7 @@ export default function LibraryScreen() {
               {savedWallpapers[0].backgroundType === 'image' && (
                 <Image
                   source={{ uri: savedWallpapers[0].backgroundValue as string }}
-                  style={[StyleSheet.absoluteFillObject, { width: '100%', height: '100%' }]}
+                  style={[StyleSheet.absoluteFill]}
                   className="absolute inset-0 z-0 h-full w-full"
                   contentFit="cover"
                   transition={200}

@@ -55,8 +55,21 @@ module.exports = {
         'tertiary-fixed-dim': '#d3c4b1',
       },
       fontFamily: {
-        'noto-serif': ['NotoSerif'],
-        'manrope': ['Manrope'],
+        'noto-serif': ['NotoSerif_400Regular'],
+        'noto-serif-italic': ['NotoSerif_400Regular_Italic'],
+        'noto-serif-bold': ['NotoSerif_700Bold'],
+        'noto-serif-bold-italic': ['NotoSerif_700Bold_Italic'],
+        'noto-serif-black': ['NotoSerif_900Black'],
+        'noto-serif-black-italic': ['NotoSerif_900Black_Italic'],
+        'manrope-extralight': ['Manrope_200ExtraLight'],
+        'manrope-light': ['Manrope_300Light'],
+        'manrope': ['Manrope_400Regular'],
+        'manrope-medium': ['Manrope_500Medium'],
+        'manrope-semibold': ['Manrope_600SemiBold'],
+        'manrope-bold': ['Manrope_700Bold'],
+        'manrope-extrabold': ['Manrope_800ExtraBold'],
+        serif: ['NotoSerif_400Regular'],
+        sans: ['Manrope_400Regular'],
       },
       borderRadius: {
         'xs': '0.125rem',
@@ -86,7 +99,7 @@ module.exports = {
         '7xl': '0 75px 100px -15px rgb(0 0 0 / 0.3)',
         '8xl': '0 85px 110px -15px rgb(0 0 0 / 0.3)',
         '9xl': '0 95px 120px -15px rgb(0 0 0 / 0.3)'
-      }
+      },
     },
   },
   plugins: [],

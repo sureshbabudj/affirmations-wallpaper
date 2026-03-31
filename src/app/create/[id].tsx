@@ -85,7 +85,7 @@ export default function CustomizeScreen() {
 
         <View className="flex-col items-center">
           <Text
-            className="font-noto-serif text-2xl italic tracking-tight text-white"
+            className="font-noto-serif-italic text-2xl tracking-tight text-white"
             style={{
               textShadowColor: 'rgba(0,0,0,0.1)',
               textShadowOffset: { width: 0, height: 2 },
@@ -111,7 +111,7 @@ export default function CustomizeScreen() {
       </View>
 
       {/* Controls Overlay - Now with absolute positioning inside component */}
-      <CustomizerControls 
+      <CustomizerControls
         onApply={handleSaveToGallery}
         isApplying={saving}
         onSaveToLibrary={handleSave}

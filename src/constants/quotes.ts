@@ -438,4 +438,12 @@ export const quotes = [
     quote: 'If you can dream it, you can achieve it.',
     author: 'Zig Ziglar',
   },
+  {
+    quote: 'I inhale peace and exhale anything that no longer serves my soul.',
+    author: 'Unknown',
+  },
+  {
+    quote: 'I am worthy of love and belonging.',
+    author: 'Unknown',
+  },
 ];
