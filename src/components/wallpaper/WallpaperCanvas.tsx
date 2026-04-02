@@ -10,6 +10,12 @@ import { Image } from 'expo-image';
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
 import ViewShot from 'react-native-view-shot';
 import { colors } from '@/src/constants/colors';
+import {
+  FULL_IMG_WIDTH,
+  FULL_IMG_HEIGHT,
+  SMALL_THUMB_IMG_WIDTH,
+  SMALL_THUMB_IMG_HEIGHT,
+} from '@/src/constants/data';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -87,7 +93,11 @@ export const WallpaperCanvas = React.forwardRef<ViewShot>((props, ref) => {
         return (
           <View style={StyleSheet.absoluteFill}>
             <Image
-              source={{ uri: backgroundValue as string }}
+              source={{
+                uri: (backgroundValue as string)
+                  .replace(`w_${SMALL_THUMB_IMG_WIDTH}`, `w_${FULL_IMG_WIDTH}`)
+                  .replace(`h_${SMALL_THUMB_IMG_HEIGHT}`, `h_${FULL_IMG_HEIGHT}`),
+              }}
               style={[
                 StyleSheet.absoluteFill,
                 {

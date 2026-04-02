@@ -49,7 +49,7 @@ export const PatternSelectionModal: React.FC<PatternSelectionModalProps> = ({
                   type: key as any,
                   opacity: 0.5,
                   scale: 1,
-                  color: currentColor,
+                  color: colors['on-surface-variant'],
                 })}
               />
             </Pressable>

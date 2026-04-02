@@ -38,23 +38,29 @@ export const ImageTab: React.FC<ImageTabProps> = ({ onShowMore }) => {
             </Text>
           </Pressable>
 
-          {allImages.slice(0, 7).map((url) => (
-            <Pressable
-              key={url}
-              onPress={() => {
-                updateWallpaper({ backgroundType: 'image', backgroundValue: url });
-              }}
-              className={`relative w-20 shrink-0 overflow-hidden rounded-xl ${
-                currentWallpaper.backgroundValue === url ? 'border-2 border-primary' : ''
-              }`}
-              style={{ aspectRatio: 4 / 5 }}>
-              <Image
-                source={{ uri: url }}
-                style={{ width: '100%', height: '100%' }}
-                contentFit="cover"
-              />
-            </Pressable>
-          ))}
+          {allImages.slice(0, 7).map((url) => {
+            // Transform thumbnail URL to modal thumb size if needed, but per requirement tab uses SMALL_THUMB_IMG_WIDTH/HEIGHT
+            // Assuming allImages already has SMALL_THUMB_IMG_WIDTH/HEIGHT
+            return (
+              <Pressable
+                key={url}
+                onPress={() => {
+                  // For the actual wallpaper, we might want higher res, but updateWallpaper stores the value
+                  // We'll replace it in the canvas.
+                  updateWallpaper({ backgroundType: 'image', backgroundValue: url });
+                }}
+                className={`relative w-20 shrink-0 overflow-hidden rounded-xl ${
+                  currentWallpaper.backgroundValue === url ? 'border-2 border-primary' : ''
+                }`}
+                style={{ aspectRatio: 4 / 5 }}>
+                <Image
+                  source={{ uri: url }}
+                  style={{ width: '100%', height: '100%' }}
+                  contentFit="cover"
+                />
+              </Pressable>
+            );
+          })}
 
           <Pressable
             onPress={onShowMore}

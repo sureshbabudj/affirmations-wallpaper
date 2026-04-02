@@ -2,6 +2,12 @@ import React from 'react';
 import { View, Text, ScrollView, Pressable, Modal } from 'react-native';
 import { X } from 'lucide-react-native';
 import { Image } from 'expo-image';
+import {
+  THUMB_IMG_WIDTH,
+  THUMB_IMG_HEIGHT,
+  SMALL_THUMB_IMG_WIDTH,
+  SMALL_THUMB_IMG_HEIGHT,
+} from '@/src/constants/data';
 
 interface ImageSelectionModalProps {
   visible: boolean;
@@ -32,19 +38,26 @@ export const ImageSelectionModal: React.FC<ImageSelectionModalProps> = ({
             flexDirection: 'row',
             flexWrap: 'wrap',
           }}>
-          {images.map((url, i) => (
-            <Pressable
-              key={'allimg' + i}
-              onPress={() => onSelect(url)}
-              className="w-[47%] overflow-hidden rounded-xl"
-              style={{ aspectRatio: 4 / 5 }}>
-              <Image
-                source={{ uri: url }}
-                style={{ width: '100%', height: '100%' }}
-                contentFit="cover"
-              />
-            </Pressable>
-          ))}
+          {images.map((url, i) => {
+            // Swap small thumbs for regular thumbs in modal
+            const modalUrl = url
+              .replace(`w_${SMALL_THUMB_IMG_WIDTH}`, `w_${THUMB_IMG_WIDTH}`)
+              .replace(`h_${SMALL_THUMB_IMG_HEIGHT}`, `h_${THUMB_IMG_HEIGHT}`);
+
+            return (
+              <Pressable
+                key={'allimg' + i}
+                onPress={() => onSelect(url)}
+                className="w-[47%] overflow-hidden rounded-xl"
+                style={{ aspectRatio: 4 / 5 }}>
+                <Image
+                  source={{ uri: modalUrl }}
+                  style={{ width: '100%', height: '100%' }}
+                  contentFit="cover"
+                />
+              </Pressable>
+            );
+          })}
         </ScrollView>
       </View>
     </Modal>

@@ -51,7 +51,7 @@ export const PatternTab: React.FC<PatternTabProps> = ({ onPickColor, onShowMore 
           type: pattern as any,
           opacity: 0.5,
           scale: 1,
-          color: currentWallpaper.patternConfig?.color || colors['outline-variant'],
+          color: colors['on-surface-variant'],
         })}
       />
     </Pressable>

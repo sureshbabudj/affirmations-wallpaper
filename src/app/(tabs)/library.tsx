@@ -10,6 +10,12 @@ import { Image } from 'expo-image';
 import { useWallpaperStore, Wallpaper } from '@/src/stores/wallpaperStore';
 import { MOODS, MoodId } from '@/src/constants/moods';
 import { colors } from '@/src/constants/colors';
+import {
+  THUMB_IMG_WIDTH,
+  THUMB_IMG_HEIGHT,
+  SMALL_THUMB_IMG_WIDTH,
+  SMALL_THUMB_IMG_HEIGHT,
+} from '@/src/constants/data';
 
 export default function LibraryScreen() {
   const { savedWallpapers, deleteWallpaper, toggleFavorite } = useWallpaperStore();
@@ -54,7 +60,11 @@ export default function LibraryScreen() {
           )}
           {wallpaper.backgroundType === 'image' && (
             <Image
-              source={{ uri: wallpaper.backgroundValue as string }}
+              source={{
+                uri: (wallpaper.backgroundValue as string)
+                  .replace(`w_${SMALL_THUMB_IMG_WIDTH}`, `w_${THUMB_IMG_WIDTH}`)
+                  .replace(`h_${SMALL_THUMB_IMG_HEIGHT}`, `h_${THUMB_IMG_HEIGHT}`),
+              }}
               style={[StyleSheet.absoluteFill, { width: '100%', height: '100%' }]}
               className="absolute inset-0 z-0 h-full w-full"
               contentFit="cover"
@@ -239,7 +249,11 @@ export default function LibraryScreen() {
               )}
               {savedWallpapers[0].backgroundType === 'image' && (
                 <Image
-                  source={{ uri: savedWallpapers[0].backgroundValue as string }}
+                  source={{
+                    uri: (savedWallpapers[0].backgroundValue as string)
+                      .replace(`w_${SMALL_THUMB_IMG_WIDTH}`, `w_${THUMB_IMG_WIDTH}`)
+                      .replace(`h_${SMALL_THUMB_IMG_HEIGHT}`, `h_${THUMB_IMG_HEIGHT}`),
+                  }}
                   style={[StyleSheet.absoluteFill]}
                   className="absolute inset-0 z-0 h-full w-full"
                   contentFit="cover"
