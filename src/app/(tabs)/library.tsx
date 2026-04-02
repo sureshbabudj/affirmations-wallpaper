@@ -9,6 +9,7 @@ import { Image } from 'expo-image';
 
 import { useWallpaperStore, Wallpaper } from '@/src/stores/wallpaperStore';
 import { MOODS, MoodId } from '@/src/constants/moods';
+import { colors } from '@/src/constants/colors';
 
 export default function LibraryScreen() {
   const { savedWallpapers, deleteWallpaper, toggleFavorite } = useWallpaperStore();
@@ -62,7 +63,7 @@ export default function LibraryScreen() {
           )}
 
           <LinearGradient
-            colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.6)']}
+            colors={['transparent', `${colors.black}1A`, `${colors.black}99`]}
             style={StyleSheet.absoluteFill}
           />
 
@@ -91,18 +92,22 @@ export default function LibraryScreen() {
               style={{
                 fontFamily: wallpaper.fontFamily || 'NotoSerif-Bold',
                 fontSize: Math.max(14, (wallpaper.textSize || 32) * 0.5),
-                color: wallpaper.textColor || '#FFFFFF',
-                textAlign: wallpaper.textAlignment?.horizontal as any || 'center',
+                color: wallpaper.textColor || colors.white,
+                textAlign: (wallpaper.textAlignment?.horizontal as any) || 'center',
                 opacity: wallpaper.textOpacity ?? 1,
               }}>
               {wallpaper.affirmation}
             </Text>
           </View>
 
-          <View style={StyleSheet.absoluteFill} className="pointer-events-none flex-col justify-end p-4 sm:p-6">
+          <View
+            style={StyleSheet.absoluteFill}
+            className="pointer-events-none flex-col justify-end p-4 sm:p-6">
             <View className="flex-row items-center gap-2">
-              <Text className="text-white/80">{moodConfig?.emoji || '✨'}</Text>
-              <Text className="font-manrope text-[10px] font-bold uppercase tracking-widest text-white/80">
+              <Text style={{ color: `${colors.white}CC` }}>{moodConfig?.emoji || '✨'}</Text>
+              <Text
+                style={{ color: `${colors.white}CC` }}
+                className="font-manrope text-[10px] font-bold uppercase tracking-widest">
                 {moodConfig?.name || 'Saved'}
               </Text>
             </View>
@@ -118,12 +123,12 @@ export default function LibraryScreen() {
             <Pressable onPress={() => toggleFavorite(wallpaper.id)} className="active:scale-90">
               <Heart
                 size={18}
-                color={wallpaper.isFavorite ? '#874c37' : '#85736e'}
-                fill={wallpaper.isFavorite ? '#874c37' : 'transparent'}
+                color={wallpaper.isFavorite ? colors.primary : colors.outline}
+                fill={wallpaper.isFavorite ? colors.primary : 'transparent'}
               />
             </Pressable>
             <Pressable onPress={() => deleteWallpaper(wallpaper.id)} className="active:scale-90">
-              <Trash2 size={18} color="#85736e" />
+              <Trash2 size={18} color={colors.outline} />
             </Pressable>
           </View>
         </View>
@@ -140,13 +145,13 @@ export default function LibraryScreen() {
         style={{ paddingTop: insets.top }}
         className="z-40 w-full flex-row items-center justify-between bg-surface px-6 py-4">
         <Pressable className="text-primary active:scale-95">
-          <Menu size={24} color="#874c37" />
+          <Menu size={24} color={colors.primary} />
         </Pressable>
         <Text className="font-noto-serif-italic text-2xl tracking-tight text-primary">I Am</Text>
         <Pressable
           onPress={() => router.push('/settings')}
           className="text-primary active:scale-95">
-          <User size={24} color="#874c37" />
+          <User size={24} color={colors.primary} />
         </Pressable>
       </View>
 
@@ -155,13 +160,13 @@ export default function LibraryScreen() {
         <View className="pb-6 pt-4">
           <View className="relative mb-6 w-full px-6">
             <View className="pointer-events-none absolute inset-y-0 left-12 z-10 flex items-center justify-center">
-              <Search size={20} color="#85736e" />
+              <Search size={20} color={colors.outline} />
             </View>
             <TextInput
               value={searchQuery}
               onChangeText={setSearchQuery}
               placeholder="Search affirmations..."
-              placeholderTextColor="rgba(133, 115, 110, 0.6)"
+              placeholderTextColor={`${colors.outline}99`}
               className="w-full rounded-full bg-surface-container-low py-4 pl-14 pr-6 font-manrope text-on-surface focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20"
             />
           </View>
@@ -211,7 +216,7 @@ export default function LibraryScreen() {
         {savedWallpapers.length > 0 && searchQuery === '' && selectedMoodFilter === 'all' && (
           <View className="group relative mb-12 mt-4 px-6">
             <View className="absolute -top-3 left-10 z-10">
-              <Text className="rounded-full bg-surface px-3 py-1 font-manrope text-[10px] font-bold uppercase tracking-widest text-[#874c37]">
+              <Text className="rounded-full bg-surface px-3 py-1 font-manrope text-[10px] font-bold uppercase tracking-widest text-primary">
                 Today&apos;s Focus
               </Text>
             </View>
@@ -242,7 +247,7 @@ export default function LibraryScreen() {
                 />
               )}
               <LinearGradient
-                colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.6)']}
+                colors={[`${colors.black}1A`, `${colors.black}66`, `${colors.black}99`]}
                 style={StyleSheet.absoluteFill}
               />
 
@@ -271,16 +276,23 @@ export default function LibraryScreen() {
                   style={{
                     fontFamily: savedWallpapers[0].fontFamily || 'NotoSerif-Bold',
                     fontSize: savedWallpapers[0].textSize || 32,
-                    color: savedWallpapers[0].textColor || '#FFFFFF',
-                    textAlign: savedWallpapers[0].textAlignment?.horizontal as any || 'center',
+                    color: savedWallpapers[0].textColor || colors.white,
+                    textAlign: (savedWallpapers[0].textAlignment?.horizontal as any) || 'center',
                     opacity: savedWallpapers[0].textOpacity ?? 1,
                   }}>
                   {savedWallpapers[0].affirmation}
                 </Text>
 
                 <View className="mt-6 flex-row items-center justify-center gap-4">
-                  <View className="rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-md">
-                    <Text className="font-manrope text-[10px] font-bold uppercase tracking-widest text-white">
+                  <View
+                    style={{
+                      backgroundColor: `${colors.white}1A`,
+                      borderColor: `${colors.white}33`,
+                    }}
+                    className="rounded-full border px-4 py-1.5 backdrop-blur-md">
+                    <Text
+                      style={{ color: colors.white }}
+                      className="font-manrope text-[10px] font-bold uppercase tracking-widest">
                       Saved
                     </Text>
                   </View>
@@ -290,15 +302,18 @@ export default function LibraryScreen() {
               <View className="absolute bottom-6 right-6 flex-row gap-3">
                 <Pressable
                   onPress={() => toggleFavorite(savedWallpapers[0].id)}
-                  className="h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl active:scale-95">
+                  style={{ backgroundColor: `${colors.white}33` }}
+                  className="h-12 w-12 items-center justify-center rounded-full backdrop-blur-xl active:scale-95">
                   <Heart
                     size={20}
-                    color={savedWallpapers[0].isFavorite ? '#ffb59c' : 'white'}
-                    fill={savedWallpapers[0].isFavorite ? '#ffb59c' : 'transparent'}
+                    color={savedWallpapers[0].isFavorite ? colors['inverse-primary'] : colors.white}
+                    fill={savedWallpapers[0].isFavorite ? colors['inverse-primary'] : 'transparent'}
                   />
                 </Pressable>
-                <Pressable className="h-12 w-12 items-center justify-center rounded-full bg-white/20 backdrop-blur-xl active:scale-95">
-                  <Share2 size={20} color="white" />
+                <Pressable
+                  style={{ backgroundColor: `${colors.white}33` }}
+                  className="h-12 w-12 items-center justify-center rounded-full backdrop-blur-xl active:scale-95">
+                  <Share2 size={20} color={colors.white} />
                 </Pressable>
               </View>
             </Pressable>
@@ -314,13 +329,13 @@ export default function LibraryScreen() {
           </View>
           <Pressable className="flex-row items-center gap-1 active:opacity-80">
             <Text className="font-manrope text-xs font-semibold text-primary">View as List</Text>
-            <List size={18} color="#874c37" />
+            <List size={18} color={colors.primary} />
           </Pressable>
         </View>
 
         {filteredWallpapers.length === 0 ? (
           <View className="mx-auto max-w-lg items-center space-y-6 px-8 py-16 text-center">
-            <BookOpen size={48} color="rgba(135, 76, 55, 0.3)" />
+            <BookOpen size={48} color={`${colors.primary}4D`} />
             <Text className="font-noto-serif text-2xl text-on-surface">
               Keep growing your sanctuary
             </Text>

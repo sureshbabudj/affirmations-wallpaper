@@ -46,4 +46,40 @@ export const colors = {
   'tertiary-container': '#7e7362',
   'tertiary-fixed': '#f0e0cc',
   'tertiary-fixed-dim': '#d3c4b1',
+  black: '#000000',
+  white: '#ffffff',
+  'mood-energetic-primary': '#FF6B35',
+  'mood-energetic-secondary': '#F7931E',
+  'mood-peaceful-primary': '#FF6B9D',
+  'mood-peaceful-secondary': '#C44569',
+  'mood-calm-primary': '#96CEB4',
+  'mood-calm-secondary': '#FFEAA7',
+  'mood-focused-primary': '#74B9FF',
+  'mood-focused-secondary': '#0984E3',
+  'sky-500': '#0ea5e9',
+  'pink-500': '#ec4899',
+  'yellow-500': '#eab308',
+  'green-500': '#22c55e',
+  'mood-confident-primary': '#FDCB6E',
+  'mood-confident-secondary': '#E17055',
+  'mood-grateful-primary': '#FD79A8',
+  'mood-grateful-secondary': '#E84393',
 };
+
+export const DEFAULT_GRADIENT = [
+  colors['mood-energetic-primary'],
+  colors['mood-energetic-secondary'],
+];
+
+export const PREDEFINED_GRADIENTS = [
+  DEFAULT_GRADIENT,
+  ['#FF3366', '#FF9933'],
+  ['#00C9FF', '#92FE9D'],
+  ['#ef32d9', '#89fffd'],
+  ['#ff758c', '#ff7eb3'],
+  ['#20002c', '#cbb4d4'],
+  ['#C33764', '#1D2671'],
+  ['#34e89e', '#0f3443'],
+  ['#e1eec3', '#f05053'],
+  [colors.black, '#434343'],
+];

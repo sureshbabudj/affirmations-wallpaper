@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppStore } from '@/src/stores/appStore';
+import { colors } from '@/src/constants/colors';
 
 const STEPS = [
   {
@@ -13,21 +14,21 @@ const STEPS = [
     description:
       "Whether you're feeling happy, focused, or need a little motivation, we have affirmations for every moment.",
     icon: Heart,
-    color: '#a4644e', // primary-container
+    color: colors['primary-container'],
   },
   {
     title: 'Personalize your Style',
     description:
       'Choose from beautiful colors, patterns, and high-quality images to create a wallpaper that inspires you.',
     icon: Palette,
-    color: '#874c37', // primary
+    color: colors.primary,
   },
   {
     title: 'Save & Share',
     description:
       'Keep your affirmations in your gallery and set them as your daily wallpaper or widget background.',
     icon: Share,
-    color: '#526351', // secondary
+    color: colors.secondary,
   },
 ];
 
@@ -61,9 +62,7 @@ export default function OnboardingScreen() {
       <View
         style={{ paddingTop: insets.top + 16 }}
         className="absolute top-0 z-20 w-full flex-row justify-end px-8">
-        <Pressable
-          onPress={handleSkip}
-          className="px-4 py-2 active:opacity-70">
+        <Pressable onPress={handleSkip} className="px-4 py-2 active:opacity-70">
           <Text className="font-manrope text-xs uppercase tracking-[0.2em] text-on-surface/60">
             Skip
           </Text>
@@ -88,7 +87,7 @@ export default function OnboardingScreen() {
 
           <View className="mb-8 h-[1px] w-12 bg-primary/30" />
 
-          <Text className="font-noto-serif-italic mb-6 text-center text-4xl leading-tight text-on-surface">
+          <Text className="mb-6 text-center font-noto-serif-italic text-4xl leading-tight text-on-surface">
             {step.title}
           </Text>
 
@@ -119,7 +118,7 @@ export default function OnboardingScreen() {
           <Text className="font-manrope text-sm font-extrabold uppercase tracking-widest text-primary">
             {currentStep === STEPS.length - 1 ? 'Get Started' : 'Continue'}
           </Text>
-          <ChevronRight size={18} color="#874c37" />
+          <ChevronRight size={18} color={colors.primary} />
         </Pressable>
 
         {/* Terms Disclaimer */}

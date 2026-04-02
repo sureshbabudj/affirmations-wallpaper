@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Crypto from 'expo-crypto';
+import { colors, DEFAULT_GRADIENT } from '../constants/colors';
 
 export type BackgroundType = 'color' | 'gradient' | 'image' | 'pattern';
 
@@ -86,10 +87,10 @@ interface WallpaperState {
 
 export const DEFAULT_WALLPAPER: Partial<Wallpaper> = {
   backgroundType: 'gradient',
-  backgroundValue: ['#FF6B35', '#F7931E'],
+  backgroundValue: DEFAULT_GRADIENT,
   imageOpacity: 1,
   imageSaturation: 1,
-  textColor: '#FFFFFF',
+  textColor: colors.white,
   textSize: 32,
   textAlignment: { vertical: 'center', horizontal: 'center' },
   textOpacity: 1,
@@ -98,7 +99,7 @@ export const DEFAULT_WALLPAPER: Partial<Wallpaper> = {
     type: 'none',
     opacity: 0.2,
     scale: 1,
-    color: '#000000',
+    color: colors.black,
   },
   textContent: '',
 };
@@ -234,8 +235,3 @@ export const useWallpaperStore = create<WallpaperState>()(
     }
   )
 );
-
-// Provider component for context (optional, mainly for initialization)
-export const WallpaperProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <>{children}</>;
-};

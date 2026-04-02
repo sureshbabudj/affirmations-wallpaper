@@ -5,6 +5,7 @@ import { useWallpaperStore, DEFAULT_WALLPAPER } from '@/src/stores/wallpaperStor
 import { MOOD_IMAGES } from '@/src/constants/images';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { X } from 'lucide-react-native';
+import { colors } from '@/src/constants/colors';
 
 import { ColorTab } from './ColorTab';
 import { ImageTab } from './ImageTab';
@@ -26,7 +27,7 @@ interface CustomizerControlsProps {
   onClose: () => void;
 }
 
-const DEFAULT_GRADIENT = ['#FF6B35', '#F7931E'];
+const DEFAULT_GRADIENT = [colors['mood-energetic-primary'], colors['mood-energetic-secondary']];
 
 export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
   onApply,
@@ -91,7 +92,7 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
         <Pressable
           onPress={onClose}
           className="h-8 w-8 items-center justify-center rounded-full bg-surface-container-high active:scale-90">
-          <X size={16} color="#53433e" strokeWidth={3} />
+          <X size={16} color={colors['on-surface-variant']} strokeWidth={3} />
         </Pressable>
       </View>
 
@@ -112,7 +113,7 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
               style={
                 activeTab === tab
                   ? {
-                      shadowColor: '#874c37',
+                      shadowColor: colors.primary,
                       shadowOffset: { width: 0, height: 2 },
                       shadowOpacity: 0.1,
                       shadowRadius: 4,
@@ -163,13 +164,13 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
           disabled={isApplying}
           className="flex-1 rounded-xl bg-primary py-3 shadow-xl transition-all active:scale-[0.98]"
           style={{
-            shadowColor: '#874c37',
+            shadowColor: colors.primary,
             shadowOffset: { width: 0, height: 4 },
             shadowOpacity: 0.2,
             shadowRadius: 10,
           }}>
           {isApplying ? (
-            <ActivityIndicator color="#ffffff" />
+            <ActivityIndicator color={colors.white} />
           ) : (
             <Text className="text-center font-manrope text-sm font-bold text-white">
               Apply as Wallpaper
@@ -199,7 +200,7 @@ export const CustomizerControls: React.FC<CustomizerControlsProps> = ({
 
       <PatternSelectionModal
         visible={isPatternsModalOpen}
-        currentColor={currentWallpaper.patternConfig?.color || '#30312e'}
+        currentColor={currentWallpaper.patternConfig?.color || colors['inverse-surface']}
         onSelect={(type) => {
           updateWallpaper({
             patternConfig: {

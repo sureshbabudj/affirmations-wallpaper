@@ -9,6 +9,7 @@ import { transformText } from '@/src/services/text/unicode-map';
 import { Image } from 'expo-image';
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
 import ViewShot from 'react-native-view-shot';
+import { colors } from '@/src/constants/colors';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -17,13 +18,13 @@ export const WallpaperCanvas = React.forwardRef<ViewShot>((props, ref) => {
 
   const {
     backgroundType = 'gradient',
-    backgroundValue = ['#FF6B35', '#F7931E'],
+    backgroundValue = [colors['mood-energetic-primary'], colors['mood-energetic-secondary']],
     patternConfig,
     imageOpacity = 1,
     imageSaturation = 1,
     affirmation = '',
     textContent = '',
-    textColor = '#FFFFFF',
+    textColor = colors.white,
     textSize = 32,
     textAlignment = { vertical: 'center', horizontal: 'center' },
     textOpacity = 1,
@@ -63,19 +64,19 @@ export const WallpaperCanvas = React.forwardRef<ViewShot>((props, ref) => {
           <View
             style={[
               StyleSheet.absoluteFill,
-              { backgroundColor: (backgroundValue as string) || '#000000' },
+              { backgroundColor: (backgroundValue as string) || colors.black },
             ]}
           />
         );
 
       case 'gradient':
-        const colors =
+        const gradientColors =
           Array.isArray(backgroundValue) && backgroundValue.length >= 2
             ? backgroundValue
-            : ['#FF6B35', '#F7931E'];
+            : [colors['mood-energetic-primary'], colors['mood-energetic-secondary']];
         return (
           <LinearGradient
-            colors={colors as [string, string, ...string[]]}
+            colors={gradientColors as [string, string, ...string[]]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={StyleSheet.absoluteFill}
@@ -101,7 +102,7 @@ export const WallpaperCanvas = React.forwardRef<ViewShot>((props, ref) => {
                 style={[
                   StyleSheet.absoluteFill,
                   {
-                    backgroundColor: '#000',
+                    backgroundColor: colors.black,
                     opacity: 1 - Math.min(1, Math.max(0, imageSaturation)),
                   },
                 ]}
@@ -114,12 +115,12 @@ export const WallpaperCanvas = React.forwardRef<ViewShot>((props, ref) => {
         const bgColor =
           typeof backgroundValue === 'string' && backgroundValue.startsWith('#')
             ? backgroundValue
-            : '#FBF9F4';
+            : colors.background;
         const activePatternType = patternConfig?.type || 'grid';
         const mergedPatternConfig = {
           ...patternConfig,
           type: activePatternType,
-          color: patternConfig?.color || currentWallpaper.textColor || '#30312e',
+          color: patternConfig?.color || currentWallpaper.textColor || colors['inverse-surface'],
           opacity: patternConfig?.opacity ?? 0.2,
           scale: patternConfig?.scale ?? 1,
         };

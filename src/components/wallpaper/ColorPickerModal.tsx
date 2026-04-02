@@ -55,7 +55,7 @@ export const ColorPickerModal: React.FC<ColorPickerModalProps> = ({
                 style={{
                   height: 180,
                   borderRadius: 24,
-                  shadowColor: '#000',
+                  shadowColor: colors.black,
                   shadowOpacity: 0.1,
                   shadowRadius: 10,
                 }}
@@ -78,7 +78,7 @@ export const ColorPickerModal: React.FC<ColorPickerModalProps> = ({
             <TextInput
               value={tempHex}
               onChangeText={setTempHex}
-              placeholder="#000000"
+              placeholder={colors.black}
               className="shadow-inner w-full rounded-2xl bg-surface-container-high px-6 py-4 text-center font-manrope text-lg font-bold tracking-widest text-on-surface"
               autoCapitalize="none"
               maxLength={7}

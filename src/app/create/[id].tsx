@@ -1,13 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Pressable, ActivityIndicator, Alert, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  ActivityIndicator,
+  Alert,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { X, Settings2 } from 'lucide-react-native';
 import { StatusBar } from 'expo-status-bar';
-
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
 import { WallpaperCanvas } from '@/src/components/wallpaper/WallpaperCanvas';
 import { CustomizerControls } from '@/src/components/wallpaper/CustomizerControls';
-
+import { colors } from '@/src/constants/colors';
 import * as MediaLibrary from 'expo-media-library';
 import ViewShot from 'react-native-view-shot';
 import Animated, {
@@ -16,7 +23,6 @@ import Animated, {
   withSpring,
   interpolate,
 } from 'react-native-reanimated';
-
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -115,7 +121,7 @@ export default function CustomizeScreen() {
   if (!currentWallpaper.affirmation) {
     return (
       <View className="flex-1 items-center justify-center bg-surface">
-        <ActivityIndicator size="large" color="#874c37" />
+        <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
   }
@@ -131,7 +137,7 @@ export default function CustomizeScreen() {
         <Pressable
           onPress={() => router.back()}
           className="flex h-12 w-12 items-center justify-center rounded-full bg-black/10 backdrop-blur-md active:scale-90">
-          <X size={24} color={isControlsVisible ? '#000000' : '#ffffff'} />
+          <X size={24} color={isControlsVisible ? colors.black : colors.white} />
         </Pressable>
 
         <View className="flex-col items-center">
@@ -174,13 +180,13 @@ export default function CustomizeScreen() {
             onPress={() => toggleControls(true)}
             className="flex-row items-center gap-3 rounded-full bg-white/90 px-6 py-4 shadow-2xl backdrop-blur-xl active:scale-95"
             style={{
-              shadowColor: '#000',
+              shadowColor: colors.black,
               shadowOffset: { width: 0, height: 10 },
               shadowOpacity: 0.2,
               shadowRadius: 20,
               elevation: 10,
             }}>
-            <Settings2 size={20} color="#874c37" strokeWidth={2.5} />
+            <Settings2 size={20} color={colors.primary} strokeWidth={2.5} />
             <Text className="font-manrope text-sm font-bold uppercase tracking-widest text-primary">
               Customize
             </Text>
@@ -203,5 +209,3 @@ export default function CustomizeScreen() {
     </View>
   );
 }
-
-const StyleSheet = require('react-native').StyleSheet;

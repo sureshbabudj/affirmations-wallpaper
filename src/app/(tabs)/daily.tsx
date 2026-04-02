@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
 import { MOODS, MoodId } from '@/src/constants/moods';
+import { colors } from '@/src/constants/colors';
 
 export default function DailyScreen() {
   const { savedWallpapers, dailyQueue } = useWallpaperStore();
@@ -106,14 +107,14 @@ export default function DailyScreen() {
           <Pressable
             onPress={() => router.push('/settings')}
             className="h-10 w-10 items-center justify-center rounded-full border-outline-variant bg-surface-container">
-            <Settings size={20} color="#53433e" />
+            <Settings size={20} color={colors['on-surface-variant']} />
           </Pressable>
         </View>
 
         {dailyWallpaper ? (
           <View className="px-6 pt-4">
-            <View className="mb-8 flex-row items-center rounded-2xl border-primary bg-primary-container p-5">
-              <Sparkles size={24} color="#fbf9f4" />
+            <View className="mb-10 flex-row items-center rounded-[2rem] border-primary bg-primary-container p-5">
+              <Sparkles size={24} color={colors.background} />
               <View className="ml-4 flex-1">
                 <Text className="font-manrope font-bold text-on-primary-container">
                   Rotation Active
@@ -137,7 +138,7 @@ export default function DailyScreen() {
         ) : (
           <View className="mt-20 flex-1 items-center justify-center p-12">
             <View className="mb-6 h-16 w-16 items-center justify-center rounded-full bg-surface-container">
-              <Layout size={32} color="#53433e" />
+              <Layout size={32} color={colors['on-surface-variant']} />
             </View>
             <Text className="mb-2 text-center font-noto-serif text-xl text-on-surface">
               No active affirmation
@@ -160,7 +161,7 @@ export default function DailyScreen() {
 
 const styles = StyleSheet.create({
   widgetShadow: {
-    shadowColor: '#000',
+    shadowColor: colors.black,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 15,

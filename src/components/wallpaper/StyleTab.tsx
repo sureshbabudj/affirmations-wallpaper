@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Pressable } from 'react-native';
 import { Grid } from 'lucide-react-native';
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
 import { transformText, maps } from '@/src/services/text/unicode-map';
+import { colors } from '@/src/constants/colors';
 
 interface StyleTabProps {
   onShowMore: () => void;
@@ -34,9 +35,7 @@ export const StyleThumb = ({
       } ${isSelected ? 'border-2 border-primary' : 'border border-outline-variant'}`}
       style={[
         !isFullWidth ? { aspectRatio: 1 } : {},
-        isSelected
-          ? { backgroundColor: 'rgba(135, 76, 55, 0.05)' }
-          : { backgroundColor: '#ffffff' },
+        isSelected ? { backgroundColor: `${colors.primary}0D` } : { backgroundColor: colors.white },
       ]}>
       <Text
         numberOfLines={2}
@@ -94,7 +93,7 @@ export const StyleTab: React.FC<StyleTabProps> = ({ onShowMore }) => {
             onPress={onShowMore}
             className="flex w-28 shrink-0 flex-col items-center justify-center rounded-xl bg-surface-container transition-colors hover:bg-surface-container-high"
             style={{ aspectRatio: 1 }}>
-            <Grid size={24} color="#53433e" />
+            <Grid size={24} color={colors['on-surface-variant']} />
             <Text className="mt-2 font-manrope text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/50">
               More
             </Text>

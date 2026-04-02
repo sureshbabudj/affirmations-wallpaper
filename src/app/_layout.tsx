@@ -21,8 +21,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-
-import { WallpaperProvider } from '@/src/stores/wallpaperStore';
 import { MoodProvider } from '@/src/stores/moodStore';
 import '@/global.css';
 
@@ -60,31 +58,29 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <MoodProvider>
-            <WallpaperProvider>
-              <Stack screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="mood/[mood]"
-                  options={{
-                    presentation: 'card',
-                    animation: 'slide_from_right',
-                  }}
-                />
-                <Stack.Screen
-                  name="create/[id]"
-                  options={{
-                    presentation: 'fullScreenModal',
-                    animation: 'fade',
-                  }}
-                />
-                <Stack.Screen
-                  name="settings/index"
-                  options={{ presentation: 'modal', title: 'Settings' }}
-                />
-                <Stack.Screen name="onboarding" options={{ presentation: 'fullScreenModal' }} />
-              </Stack>
-              <StatusBar style="auto" />
-            </WallpaperProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="mood/[mood]"
+                options={{
+                  presentation: 'card',
+                  animation: 'slide_from_right',
+                }}
+              />
+              <Stack.Screen
+                name="create/[id]"
+                options={{
+                  presentation: 'fullScreenModal',
+                  animation: 'fade',
+                }}
+              />
+              <Stack.Screen
+                name="settings/index"
+                options={{ presentation: 'modal', title: 'Settings' }}
+              />
+              <Stack.Screen name="onboarding" options={{ presentation: 'fullScreenModal' }} />
+            </Stack>
+            <StatusBar style="auto" />
           </MoodProvider>
         </GestureHandlerRootView>
       </SafeAreaProvider>

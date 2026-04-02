@@ -118,13 +118,13 @@ export default function HomeScreen() {
         style={{ paddingTop: insets.top }}
         className="z-40 w-full flex-row items-center justify-between bg-surface px-6 py-4">
         <Pressable className="text-primary active:scale-95">
-          <Menu size={24} color="#874c37" />
+          <Menu size={24} color={colors.primary} />
         </Pressable>
         <Text className="font-noto-serif-italic text-2xl text-primary">I Am</Text>
         <Pressable
           onPress={() => router.push('/settings')}
           className="text-primary active:scale-95">
-          <User size={24} color="#874c37" />
+          <User size={24} color={colors.primary} />
         </Pressable>
       </View>
 
@@ -145,13 +145,13 @@ export default function HomeScreen() {
 
               <View className="mt-8 flex-row items-center justify-center gap-6">
                 <Pressable className="flex-row items-center gap-2 active:opacity-70">
-                  <Heart size={18} color="#874c37" />
+                  <Heart size={18} color={colors.primary} />
                   <Text className="font-manrope text-[10px] font-semibold uppercase tracking-widest text-primary">
                     Save
                   </Text>
                 </Pressable>
                 <Pressable className="flex-row items-center gap-2 active:opacity-70">
-                  <Share2 size={18} color="#874c37" />
+                  <Share2 size={18} color={colors.primary} />
                   <Text className="font-manrope text-[10px] font-semibold uppercase tracking-widest text-primary">
                     Share
                   </Text>

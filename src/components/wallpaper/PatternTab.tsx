@@ -5,18 +5,19 @@ import { SvgXml } from 'react-native-svg';
 import Slider from '@react-native-community/slider';
 import { useWallpaperStore, DEFAULT_WALLPAPER } from '@/src/stores/wallpaperStore';
 import { generatePatternSVG, PATTERN_DEFINITIONS } from '@/src/services/wallpaper/patterns';
+import { colors } from '@/src/constants/colors';
 
 const PREDEFINED_COLORS = [
-  '#fbf9f4',
-  '#d5e8d1',
-  '#ffdbcf',
-  '#874c37',
-  '#30312e',
-  '#655a4b',
-  '#0ea5e9',
-  '#ec4899',
-  '#eab308',
-  '#22c55e',
+  colors.background,
+  colors['secondary-container'],
+  colors['primary-fixed'],
+  colors.primary,
+  colors['inverse-surface'],
+  colors.tertiary,
+  colors['sky-500'],
+  colors['pink-500'],
+  colors['yellow-500'],
+  colors['green-500'],
 ];
 
 const MemoizedPattern = React.memo(({ xml }: { xml: string }) => (
@@ -50,7 +51,7 @@ export const PatternTab: React.FC<PatternTabProps> = ({ onPickColor, onShowMore 
           type: pattern as any,
           opacity: 0.5,
           scale: 1,
-          color: currentWallpaper.patternConfig?.color || '#30312e',
+          color: currentWallpaper.patternConfig?.color || colors['outline-variant'],
         })}
       />
     </Pressable>
@@ -96,7 +97,7 @@ export const PatternTab: React.FC<PatternTabProps> = ({ onPickColor, onShowMore 
             }}
             className="flex w-20 shrink-0 items-center justify-center rounded-xl border border-dashed border-outline-variant bg-surface-container-lowest"
             style={{ aspectRatio: 4 / 5 }}>
-            <Ban size={24} color="#53433e" />
+            <Ban size={24} color={colors['on-surface-variant']} />
             <Text className="mt-2 font-manrope text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
               None
             </Text>
@@ -112,7 +113,7 @@ export const PatternTab: React.FC<PatternTabProps> = ({ onPickColor, onShowMore 
             onPress={onShowMore}
             className="flex w-20 shrink-0 items-center justify-center rounded-xl bg-surface-container transition-colors hover:bg-surface-container-high"
             style={{ aspectRatio: 4 / 5 }}>
-            <Grid size={24} color="#53433e" />
+            <Grid size={24} color={colors['on-surface-variant']} />
             <Text className="mt-2 font-manrope text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
               More
             </Text>
@@ -132,7 +133,7 @@ export const PatternTab: React.FC<PatternTabProps> = ({ onPickColor, onShowMore 
           <Pressable
             onPress={() => onPickColor('pattern')}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-dashed border-outline-variant transition-colors hover:bg-surface-container">
-            <Palette size={18} color="#d8c2bb" />
+            <Palette size={18} color={colors['outline-variant']} />
           </Pressable>
           {PREDEFINED_COLORS.map((c) => (
             <ColorCircle
@@ -163,8 +164,8 @@ export const PatternTab: React.FC<PatternTabProps> = ({ onPickColor, onShowMore 
               patternConfig: { ...currentWallpaper.patternConfig!, opacity: val },
             })
           }
-          minimumTrackTintColor="#874c37"
-          maximumTrackTintColor="#d8c2bb"
+          minimumTrackTintColor={colors.primary}
+          maximumTrackTintColor={colors['outline-variant']}
         />
       </View>
     </View>

@@ -3,22 +3,7 @@ import { View, Text, ScrollView, Pressable } from 'react-native';
 import { Ban, Pipette } from 'lucide-react-native';
 import { Svg, Defs, LinearGradient, Stop, Rect } from 'react-native-svg';
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
-
-const DEFAULT_GRADIENT = ['#FF6B35', '#F7931E'];
-
-const PREDEFINED_GRADIENTS = [
-  DEFAULT_GRADIENT,
-  ['#FF3366', '#FF9933'],
-  ['#00C9FF', '#92FE9D'],
-  ['#ef32d9', '#89fffd'],
-  ['#ff758c', '#ff7eb3'],
-  ['#20002c', '#cbb4d4'],
-  ['#C33764', '#1D2671'],
-  ['#34e89e', '#0f3443'],
-  ['#e1eec3', '#f05053'],
-  ['#000000', '#434343'],
-];
-
+import { colors, DEFAULT_GRADIENT, PREDEFINED_GRADIENTS } from '@/src/constants/colors';
 interface GradientTabProps {
   onPickColor: (target: 'bg' | 'text' | 'pattern' | 'gradient0' | 'gradient1') => void;
 }
@@ -86,9 +71,11 @@ export const GradientTab: React.FC<GradientTabProps> = ({ onPickColor }) => {
           contentContainerStyle={{ gap: 8 }}
           className="flex-row pb-2">
           <Pressable
-            onPress={() => updateWallpaper({ backgroundType: 'color', backgroundValue: '#000000' })}
+            onPress={() =>
+              updateWallpaper({ backgroundType: 'color', backgroundValue: colors.black })
+            }
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-dashed border-outline-variant bg-surface-container-lowest">
-            <Ban size={20} color="#53433e" />
+            <Ban size={20} color={colors['on-surface-variant']} />
           </Pressable>
 
           {[...recentGradients, ...PREDEFINED_GRADIENTS].slice(0, 15).map((g, i) => (

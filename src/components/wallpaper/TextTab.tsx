@@ -2,18 +2,19 @@ import React from 'react';
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import { Palette } from 'lucide-react-native';
 import { useWallpaperStore } from '@/src/stores/wallpaperStore';
+import { colors } from '@/src/constants/colors';
 
 const PREDEFINED_COLORS = [
-  '#fbf9f4',
-  '#d5e8d1',
-  '#ffdbcf',
-  '#874c37',
-  '#30312e',
-  '#655a4b',
-  '#0ea5e9',
-  '#ec4899',
-  '#eab308',
-  '#22c55e',
+  colors.background,
+  colors['secondary-container'],
+  colors['primary-fixed'],
+  colors.primary,
+  colors['inverse-surface'],
+  colors.tertiary,
+  colors['sky-500'],
+  colors['pink-500'],
+  colors['yellow-500'],
+  colors['green-500'],
 ];
 
 interface TextTabProps {
@@ -55,9 +56,9 @@ export const TextTab: React.FC<TextTabProps> = ({ onPickColor }) => {
           <Pressable
             onPress={() => onPickColor('text')}
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-dashed border-outline-variant transition-colors hover:bg-surface-container">
-            <Palette size={18} color="#d8c2bb" />
+            <Palette size={18} color={colors['outline-variant']} />
           </Pressable>
-          {['#ffffff', '#000000', ...PREDEFINED_COLORS].map((c) => (
+          {[colors.white, colors.black, ...PREDEFINED_COLORS].map((c) => (
             <ColorCircle
               key={'tcol' + c}
               color={c}
