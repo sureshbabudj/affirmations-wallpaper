@@ -67,7 +67,7 @@ export default function AffirmationSelectionScreen() {
   }
 
   const handleSelectAffirmation = (text: string) => {
-    createWallpaper(mood as string, text);
+    createWallpaper(mood, text);
     router.push('/create/new');
   };
 

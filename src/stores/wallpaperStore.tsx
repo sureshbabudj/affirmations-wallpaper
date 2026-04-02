@@ -87,7 +87,6 @@ interface WallpaperState {
 
 export const DEFAULT_WALLPAPER: Partial<Wallpaper> = {
   backgroundType: 'gradient',
-  backgroundValue: DEFAULT_GRADIENT,
   imageOpacity: 1,
   imageSaturation: 1,
   textColor: colors.white,
@@ -104,22 +103,36 @@ export const DEFAULT_WALLPAPER: Partial<Wallpaper> = {
   textContent: '',
 };
 
+export const MOOD_DEFAULT_GRADIENTS: Record<string, string[]> = {
+  confident: [colors['mood-confident-primary'], colors['mood-confident-secondary']],
+  grateful: [colors['mood-grateful-primary'], colors['mood-grateful-secondary']],
+  peaceful: [colors['mood-calm-primary'], colors['mood-calm-secondary']],
+  focused: [colors['mood-focused-primary'], colors['mood-focused-secondary']],
+  energetic: [colors['mood-energetic-primary'], colors['mood-energetic-secondary']],
+  romantic: [colors['mood-peaceful-primary'], colors['mood-peaceful-secondary']],
+};
+
 export const useWallpaperStore = create<WallpaperState>()(
   persist(
     (set, get) => ({
-      currentWallpaper: DEFAULT_WALLPAPER,
+      currentWallpaper: {
+        ...DEFAULT_WALLPAPER,
+        backgroundValue: DEFAULT_GRADIENT,
+      },
       savedWallpapers: [],
       dailyQueue: [],
       recentColors: [],
       recentGradients: [],
 
       createWallpaper: (moodId, affirmation) => {
+        const moodGradient = MOOD_DEFAULT_GRADIENTS[moodId] || DEFAULT_GRADIENT;
         set({
           currentWallpaper: {
             ...DEFAULT_WALLPAPER,
             id: Crypto.randomUUID(),
             moodId,
             affirmation,
+            backgroundValue: moodGradient,
             createdAt: new Date().toISOString(),
           },
         });
