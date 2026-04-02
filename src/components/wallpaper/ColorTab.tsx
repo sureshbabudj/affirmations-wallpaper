@@ -75,7 +75,7 @@ export const ColorTab: React.FC<ColorTabProps> = ({ onPickColor }) => {
         <Text className="mb-4 font-manrope text-[10px] uppercase tracking-widest text-on-surface-variant/60">
           Predefined Colors
         </Text>
-        <div className="flex-row flex-wrap gap-3">
+        <View className="flex-row flex-wrap gap-3">
           {PREDEFINED_COLORS.map((c) => (
             <ColorCircle
               key={'pre' + c}
@@ -87,7 +87,7 @@ export const ColorTab: React.FC<ColorTabProps> = ({ onPickColor }) => {
               onPress={() => updateWallpaper({ backgroundType: 'color', backgroundValue: c })}
             />
           ))}
-        </div>
+        </View>
       </View>
     </View>
   );

@@ -72,7 +72,7 @@ export const TextTab: React.FC<TextTabProps> = ({ onPickColor }) => {
         <Text className="mb-2 font-manrope text-[10px] uppercase tracking-widest text-on-surface-variant/60">
           Size
         </Text>
-        <div className="flex-row items-center gap-4 rounded-xl bg-surface-container-low p-2">
+        <View className="flex-row items-center gap-4 rounded-xl bg-surface-container-low p-2">
           {[24, 32, 48, 60].map((sz) => (
             <Pressable
               key={'sz' + sz}
@@ -84,14 +84,14 @@ export const TextTab: React.FC<TextTabProps> = ({ onPickColor }) => {
               </Text>
             </Pressable>
           ))}
-        </div>
+        </View>
       </View>
 
       <View>
         <Text className="mb-2 font-manrope text-[10px] uppercase tracking-widest text-on-surface-variant/60">
           Alignment
         </Text>
-        <div className="flex-row rounded-xl bg-surface-container-low p-1">
+        <View className="flex-row rounded-xl bg-surface-container-low p-1">
           {(['left', 'center', 'right'] as const).map((align) => (
             <Pressable
               key={'h' + align}
@@ -107,8 +107,8 @@ export const TextTab: React.FC<TextTabProps> = ({ onPickColor }) => {
               </Text>
             </Pressable>
           ))}
-        </div>
-        <div className="mt-2 flex-row rounded-xl bg-surface-container-low p-1">
+        </View>
+        <View className="mt-2 flex-row rounded-xl bg-surface-container-low p-1">
           {(['top', 'center', 'bottom'] as const).map((align) => (
             <Pressable
               key={'v' + align}
@@ -124,7 +124,7 @@ export const TextTab: React.FC<TextTabProps> = ({ onPickColor }) => {
               </Text>
             </Pressable>
           ))}
-        </div>
+        </View>
       </View>
     </View>
   );
