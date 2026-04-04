@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "I Am Aura - Quotes & Wallpapers",
-    "slug": "i-am-aura-quotes-wallpaper",
+    "slug": "affirmations-wallpaper",
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png"
@@ -26,7 +26,8 @@
       "buildNumber": "1.0.0",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Save wallpapers to your photo library",
-        "NSUserTrackingUsageDescription": "Track widget usage for improvements"
+        "NSUserTrackingUsageDescription": "Track widget usage for improvements",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
